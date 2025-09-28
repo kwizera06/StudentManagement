@@ -189,3 +189,4 @@ docker logs <container-id>
 ## 📞 Support
 
 For issues and questions, please check the application logs and ensure all environment variables are properly configured.
+

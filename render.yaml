@@ -47,3 +47,4 @@ services:
         value: health,info
       - key: MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS
         value: when-authorized
+

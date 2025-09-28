@@ -1,5 +1,5 @@
 # Multi-stage build for Spring Boot application
-FROM maven:3.9.6-openjdk-21-slim AS build
+FROM maven:3.9.6-openjdk-17-slim AS build
 
 # Set working directory
 WORKDIR /app
@@ -15,7 +15,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Runtime stage
-FROM openjdk:21-jre-slim
+FROM openjdk:17-jre-slim
 
 # Set working directory
 WORKDIR /app
@@ -41,3 +41,4 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
 
 # Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
+
