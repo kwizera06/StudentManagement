@@ -1,0 +1,49 @@
+services:
+  # Spring Boot Web Service
+  - type: web
+    name: spring-boot-app
+    env: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    region: oregon
+    branch: main
+    buildCommand: ""
+    startCommand: ""
+    healthCheckPath: /actuator/health
+    envVars:
+      # Database configuration (use your existing Render PostgreSQL database)
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:postgresql://dpg-d3cf7c2dbo4c73e46p9g-a.oregon-postgres.render.com:5432/university_db_qhla
+      - key: SPRING_DATASOURCE_USERNAME
+        value: university_db_qhla_user
+      - key: SPRING_DATASOURCE_PASSWORD
+        value: bR2SqcpuyvwFjjqOBunHL0jUhUvyzy3P
+      
+      # JPA configuration
+      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
+        value: update
+      - key: SPRING_JPA_SHOW_SQL
+        value: false
+      
+      # Mail configuration (you should set these as environment variables in Render dashboard)
+      - key: SPRING_MAIL_HOST
+        value: smtp.gmail.com
+      - key: SPRING_MAIL_PORT
+        value: 587
+      - key: SPRING_MAIL_USERNAME
+        value: kwizeraolivier06@gmail.com
+      - key: SPRING_MAIL_PASSWORD
+        value: komc srlp bkjz nuns
+      
+      # Server configuration
+      - key: SERVER_PORT
+        value: 10000
+      - key: SPRING_PROFILES_ACTIVE
+        value: production
+      
+      # Actuator configuration
+      - key: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
+        value: health,info
+      - key: MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS
+        value: when-authorized

@@ -1,0 +1,55 @@
+# Docker ignore file for Spring Boot application
+# Ignore build artifacts
+target/
+*.jar
+*.war
+*.ear
+*.class
+
+# Ignore IDE files
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore Git
+.git/
+.gitignore
+
+# Ignore Docker files
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# Ignore logs
+*.log
+logs/
+
+# Ignore temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Ignore Maven wrapper (we'll use the system Maven in Docker)
+.mvn/
+mvnw
+mvnw.cmd
+
+# Ignore test reports
+test-results/
+coverage/
+
+# Ignore documentation
+README.md
+docs/
+*.md

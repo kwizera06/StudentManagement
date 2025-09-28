@@ -75,6 +75,11 @@
 			<artifactId>spring-boot-starter-mail</artifactId>
 			<version>3.5.5</version>
 		</dependency>
+		<!-- Spring Boot Actuator for health checks -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 
 	</dependencies>
 
@@ -83,6 +88,19 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<!-- Docker build plugin -->
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.4.13</version>
+				<configuration>
+					<repository>spring-boot-app</repository>
+					<tag>${project.version}</tag>
+					<buildArgs>
+						<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+					</buildArgs>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

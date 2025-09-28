@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: spring-postgres
+    environment:
+      POSTGRES_DB: university_db
+      POSTGRES_USER: university_user
+      POSTGRES_PASSWORD: university_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - spring-network
+
+  # Spring Boot Application
+  spring-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: spring-boot-app
+    ports:
+      - "8080:8080"
+    environment:
+      # Database configuration
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/university_db
+      SPRING_DATASOURCE_USERNAME: university_user
+      SPRING_DATASOURCE_PASSWORD: university_password
+      
+      # Mail configuration (you can override these with your actual values)
+      SPRING_MAIL_HOST: smtp.gmail.com
+      SPRING_MAIL_PORT: 587
+      SPRING_MAIL_USERNAME: your-email@gmail.com
+      SPRING_MAIL_PASSWORD: your-app-password
+      
+      # JPA configuration
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: true
+      
+      # Server configuration
+      SERVER_PORT: 8080
+    depends_on:
+      - postgres
+    networks:
+      - spring-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  spring-network:
+    driver: bridge
